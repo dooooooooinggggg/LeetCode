@@ -57,7 +57,7 @@ class Solution:
 
             if x_diff != 0:
                 a = y_diff / x_diff
-                b = y1 - a * x1
+                # b = y1 - a * x1
             else:
                 a = x1
 

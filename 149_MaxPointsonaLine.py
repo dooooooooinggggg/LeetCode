@@ -27,49 +27,51 @@ class Solution:
         :rtype: int
         """
 
-        for i in range(len(points)):
-            if len(points) == 1:
-                return 1
-            for j in range(i+1, len(points)):
-                x1 = points[i].x
-                y1 = points[i].y
-                x2 = points[j].x
-                y2 = points[j].y
-                x_diff = x1 - x2
-                y_diff = y1 - y2
+        i = 0
 
-                count = 1
+        if len(points) == 1:
+            return 1
+
+        while i < len(points) - 1:
+            this_x = points[i].x
+            this_y = points[i].y
+
+            line_flag = 0
+            next_index = 0
+
+            while line_flag == 0:
+                next_index += 1
+                next_x = points[i+next_index].x
+                next_y = points[i+next_index].y
+                if (this_y - next_y)**2 + (this_x - next_x)**2 != 0:
+                    line_flag = 1
+                if i + next_index >= len(points) - 1 and line_flag == 0:
+                    return len(points)
+
+            x1 = this_x
+            y1 = this_y
+            x2 = next_x
+            y2 = next_y
+            x_diff = x1 - x2
+            y_diff = y1 - y2
+
+            if x_diff != 0:
+                a = y_diff / x_diff
+                b = y1 - a * x1
+            else:
+                a = x1
+
+            counter = 0
+            for k in range(len(points)):
 
                 if x_diff != 0:
-                    a = y_diff / x_diff
-                    b = y1 - a * x1
-                    print('y = %fx + %f' % (a, b))
+                    if points[k].y == ((a * x_diff) * points[k].x + ((x_diff * y1) - y_diff * x1)) / x_diff:
+                        counter += 1
                 else:
-                    a = x1
-                    print('x = %f' % (a))
+                    if points[k].x == a:
+                        counter += 1
+            i += next_index
 
-                if points[i] == points[j]:
-                    # count += 1
-                    for k in range(1, len(points)):
-                        if x_diff != 0:
-                            if points[k].y == ((a * x_diff) * points[k].x + ((x_diff * y1) - y_diff * x1)) / x_diff:
-                                count += 1
-                        else:
-                            if points[k].x == a:
-                                count += 1
-                        print('now_count is %d and x:%s, y:%s' %
-                              (count, points[k].x, points[k].y))
-                else:
-                    for k in range(j, len(points)):
-                        if x_diff != 0:
-                            if points[k].y == ((a * x_diff) * points[k].x + ((x_diff * y1) - y_diff * x1)) / x_diff:
-                                count += 1
-                        else:
-                            if points[k].x == a:
-                                count += 1
-                        print('now_count is %d and x:%s, y:%s' %
-                              (count, points[k].x, points[k].y))
-
-                if self.max_count < count:
-                    self.max_count = count
+            if self.max_count < counter:
+                self.max_count = counter
         return self.max_count

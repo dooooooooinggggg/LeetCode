@@ -20,9 +20,6 @@ class Solution:
         :rtype: bool
         """
 
-        # A = []
-        # A = A + D
-
         target = "0" * len(A)
 
         while int(target, 2) <= 2**len(A):

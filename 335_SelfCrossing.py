@@ -23,38 +23,38 @@ class Solution:
 
         for i in range(len(x)):
             movingPoint = pos
-            print(pos)
+            print(pos.x, pos.y)
             if i % 4 == 0:
                 for j in range(x[i]):
                     movingPoint.y += 1
-                    # if movingPoint in experienced:
-                    #     print(movingPoint.x, movingPoint.y)
-                    #     return True
+                    if movingPoint in experienced:
+                        print("OK", movingPoint.x, movingPoint.y)
+                        return True
                     experienced.append(movingPoint)
             elif i % 4 == 1:
                 for j in range(x[i]):
                     movingPoint.x -= 1
-                    # if movingPoint in experienced:
-                    #     print(movingPoint.x, movingPoint.y)
-                    #     return True
+                    if movingPoint in experienced:
+                        print("OK", movingPoint.x, movingPoint.y)
+                        return True
                     experienced.append(movingPoint)
             elif i % 4 == 2:
                 for j in range(x[i]):
                     movingPoint.y -= 1
-                    # if movingPoint in experienced:
-                    #     print(movingPoint.x, movingPoint.y)
-                    #     return True
+                    if movingPoint in experienced:
+                        print("OK", movingPoint.x, movingPoint.y)
+                        return True
                     experienced.append(movingPoint)
             elif i % 4 == 3:
                 for j in range(x[i]):
                     movingPoint.x += 1
-                    # if movingPoint in experienced:
-                    #     print(movingPoint.x, movingPoint.y)
-                    #     return True
+                    if movingPoint in experienced:
+                        print("OK", movingPoint.x, movingPoint.y)
+                        return True
                     experienced.append(movingPoint)
 
-            pos.x += movingPoint.x
-            pos.y += movingPoint.y
+            pos.x = movingPoint.x
+            pos.y = movingPoint.y
 
         for i in experienced:
             print(i.x, i.y)

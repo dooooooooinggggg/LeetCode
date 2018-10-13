@@ -5,42 +5,36 @@ class Solution:
         :type numRows: int
         :rtype: str
         """
-        numRows = 5
-        a = []
-        for i in range(numRows-1):
-            if(i == 0):
-                a += [True]*numRows
-            else:
-                tmp = []
-                tmp += [False]*numRows
-                tmp[numRows - (i+1)] = True
-                a.extend(tmp)
-        a = self.rec_len_a_fix(a, s)
-
-        index = 0
-        for i in range(len(a)):
-            if(a[i]):
-                a[i] = s[index]
-                index += 1
-                if index >= len(s):
-                    break
+        if numRows == 1:
+            return s
         res = ""
         for i in range(numRows):
-            i2 = 0
-            while(True):
-                this_index = i*i2
-                if (this_index > len(a)):
+            if (i == 0 or i == numRows-1):
+                while(True):
+                    j = i
+                    intervel = numRows+(numRows-2)
+                    while(True):
+                        if j > len(s)-1:
+                            break
+                        res += s[j]
+                        j += intervel
                     break
-                if(a[this_index]):
-                    res += a[this_index]
-                i2 += 1
+            else:
+                while(True):
+                    j = i
+                    intervelCounter = 0
+                    intervel = self.considerIntervel(numRows, i)
+                    while(True):
+                        if j > len(s)-1:
+                            break
+                        res += s[j]
+                        j += intervel[intervelCounter % 2]
+                        intervelCounter += 1
+                    break
+        return res
 
-        print(res)
-
-    def rec_len_a_fix(self, a, s):
-        tmp = [i for i in a if i]
-        if (len(tmp) > len(s)):
-            return a
-        else:
-            a.extend(a)
-            return self.rec_len_a_fix(a, s)
+    def considerIntervel(self, numRows, thisRow):
+        allInterval = numRows+(numRows-2)
+        second = thisRow*2
+        first = allInterval - second
+        return [first, second]

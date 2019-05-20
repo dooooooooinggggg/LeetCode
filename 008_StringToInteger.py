@@ -23,12 +23,16 @@ class Solution:
         for i in range(len(s)):
             if s[i] in numbers:
                 tmp += s[i]
-            elif s[i] == "+":
-                continue
+            # elif s[i] == "+":
+            #     if tmp == "":
+            #         return 0
+            #     break
             else:
                 if tmp == "":
                     return 0
                 break
+
+        print(tmp)
 
         res = int(tmp) * isNotMinus
 

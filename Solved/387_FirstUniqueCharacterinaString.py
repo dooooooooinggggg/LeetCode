@@ -1,5 +1,5 @@
 class Solution:
-    def isUnique(self,finder:str, findee:str) -> bool:
+    def isUnique(self, finder: str, findee: str) -> bool:
         for f in findee:
             if f == finder:
                 return False
